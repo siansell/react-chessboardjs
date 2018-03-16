@@ -54,11 +54,14 @@ class Piece extends Component {
       piece,
     } = this.props
 
+    const colour = piece === piece.toUpperCase() ? 'w' : 'b'
+
     /* eslint-disable function-paren-newline */
     return connectDragSource(
     /* eslint-enable function-paren-newline */
       <img
         alt={piece}
+        className={`piece piece-${piece} piece-${colour}`}
         ref={(el) => { this.pieceImage = el }}
         src={pieceImage}
         style={{

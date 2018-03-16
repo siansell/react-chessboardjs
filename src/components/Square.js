@@ -43,6 +43,7 @@ class Square extends Component {
     return connectDropTarget(
     /* eslint-enable function-paren-newline */
       <div
+        className={`square square-${algebraic} square-${isBlackSquare ? 'b' : 'w'}`}
         onBlur={() => onMouseOutSquare(algebraic, piece, fen, orientation)}
         onFocus={() => onMouseOverSquare(algebraic, piece, fen, orientation)}
         onMouseOut={() => onMouseOutSquare(algebraic, piece, fen, orientation)}

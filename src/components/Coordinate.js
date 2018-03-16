@@ -6,6 +6,7 @@ import { orientationTypes, rankOrFileTypes } from '../types'
 
 const Coordinate = ({ display, orientation, text }) => (
   <span
+    className={`coordinate coordinate-${text}`}
     style={{
       bottom: (orientation === 'w' && display === 'file') || (orientation === 'b' && display === 'file') ? 0 : null,
       left: (orientation === 'w' && display === 'rank') || (orientation === 'b' && display === 'rank') ? 0 : null,

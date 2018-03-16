@@ -50,6 +50,7 @@ class PieceDragLayer extends Component {
   renderItem = (itemType, item) => (
     <img
       alt={itemType}
+      className={`piece piece-draglayer piece-${item.piece}`}
       src={this.state.image}
       style={{
         height: item.size,
