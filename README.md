@@ -49,8 +49,7 @@ export default App
 ```
 
 ## TODO:
-- docs
 - sparePieces prop (if set, can drag pieces onto board)
 - animation?
 - tests
-- green copy square appears briefly in chrome on start drag
+- examples
