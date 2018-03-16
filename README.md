@@ -1,4 +1,6 @@
-## Work in progress
+## react-chessboardjs
+
+**Work in progress**. Use at own risk.
 
 `yarn add react-chessboardjs`
 
