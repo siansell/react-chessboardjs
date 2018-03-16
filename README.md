@@ -1,6 +1,6 @@
 ## Work in progress
 
-`yarn add @siansell/react-chessboard`
+`yarn add react-chessboardjs`
 
 A chessboard component for React, inspired by [chessboard.js](https://chessboardjs.com/).
 
