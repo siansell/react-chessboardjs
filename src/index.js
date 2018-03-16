@@ -42,6 +42,7 @@ class ChessboardProvider extends Component {
       showCoordinates,
       whiteSquareColour,
     } = props
+    // other props
     if (blackSquareColour !== initialState.blackSquareColour) {
       store.dispatch(setBlackSquareColourAction(blackSquareColour))
     }
@@ -120,15 +121,7 @@ class ChessboardProvider extends Component {
     const { size } = this.props
     return (
       <Provider store={store}>
-        <div
-          className="chessboard"
-          style={{
-            height: size,
-            width: size,
-          }}
-        >
-          <Chessboard />
-        </div>
+        <Chessboard width={size} />
       </Provider>
     )
   }
@@ -150,7 +143,7 @@ ChessboardProvider.propTypes = {
   orientation: PropTypes.oneOf(orientationTypes),
   pieceTheme: PropTypes.oneOf(pieceThemeTypes),
   showCoordinates: PropTypes.bool,
-  size: PropTypes.number,
+  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   whiteSquareColour: PropTypes.string,
 }
 
@@ -170,7 +163,7 @@ ChessboardProvider.defaultProps = {
   orientation: initialState.orientation,
   pieceTheme: initialState.pieceTheme,
   showCoordinates: initialState.showCoordinates,
-  size: initialState.size,
+  size: initialState.width,
   whiteSquareColour: initialState.whiteSquareColour,
 }
 

@@ -3,16 +3,28 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { DragDropContext } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
+import _ from 'lodash'
 
 import Coordinate from './Coordinate'
 import Piece from './Piece'
 import PieceDragLayer from './PieceDragLayer'
 import Square from './Square'
 
+import { setHeightAction } from '../store'
 import { getFenParts } from '../fen'
 import { orientationTypes } from '../types'
 
 class Chessboard extends Component {
+  componentDidMount() {
+    const { setHeight, width } = this.props
+    setHeight(this.container.offsetWidth)
+    // if the width is expressed as a percentage '100%', '80%' etc.,
+    // resize the board with the window resize event
+    if (typeof width === 'string') {
+      window.addEventListener('resize', _.debounce(() => setHeight(this.container.offsetWidth), 100), false)
+    }
+  }
+
   renderSquares = () => {
     const { fen, orientation, showCoordinates } = this.props
     const fenParts = getFenParts(fen)
@@ -26,7 +38,9 @@ class Chessboard extends Component {
         const algebraic = `${fileChar}${rankChar}`
         const isBlackSquare = (rank + file) % 2 !== 0
         const piece = fenParts[rank].charAt(file)
+        /* eslint-disable function-paren-newline */
         squares.push(
+        /* eslint-enable function-paren-newline */
           <Square
             key={algebraic}
             algebraic={algebraic}
@@ -44,25 +58,36 @@ class Chessboard extends Component {
               />
             )}
           </Square>,
+        /* eslint-disable function-paren-newline */
         )
+        /* eslint-enable function-paren-newline */
       }
     }
     return squares
   }
 
   render() {
-    const { isDraggable } = this.props
+    const { height, isDraggable, width } = this.props
     return (
       <div
+        className="chessboard"
+        ref={(el) => { this.container = el }}
         style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          height: '100%',
-          width: '100%',
+          height,
+          width,
         }}
       >
-        {this.renderSquares()}
-        {isDraggable && <PieceDragLayer />}
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            height: '100%',
+            width: '100%',
+          }}
+        >
+          {this.renderSquares()}
+          {isDraggable && <PieceDragLayer />}
+        </div>
       </div>
     )
   }
@@ -70,16 +95,29 @@ class Chessboard extends Component {
 
 Chessboard.propTypes = {
   fen: PropTypes.string.isRequired, // injected by react-redux
+  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]), // injected by react-redux
   isDraggable: PropTypes.bool.isRequired, // injected by react-redux
   orientation: PropTypes.oneOf(orientationTypes).isRequired, // injected by react-redux
+  setHeight: PropTypes.func.isRequired, // injected by react-redux
   showCoordinates: PropTypes.bool.isRequired, // injected by react-redux
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+}
+
+Chessboard.defaultProps = {
+  height: null,
 }
 
 const mapState = state => ({
   fen: state.fen,
+  height: state.height,
   isDraggable: state.isDraggable,
   orientation: state.orientation,
   showCoordinates: state.showCoordinates,
+  // width: state.width,
 })
 
-export default connect(mapState)(DragDropContext(HTML5Backend)(Chessboard))
+const mapDispatch = dispatch => ({
+  setHeight: height => dispatch(setHeightAction(height)),
+})
+
+export default connect(mapState, mapDispatch)(DragDropContext(HTML5Backend)(Chessboard))

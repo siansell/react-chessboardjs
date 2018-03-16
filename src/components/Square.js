@@ -39,7 +39,9 @@ class Square extends Component {
       whiteSquareColour,
     } = this.props
 
+    /* eslint-disable function-paren-newline */
     return connectDropTarget(
+    /* eslint-enable function-paren-newline */
       <div
         onBlur={() => onMouseOutSquare(algebraic, piece, fen, orientation)}
         onFocus={() => onMouseOverSquare(algebraic, piece, fen, orientation)}
@@ -59,7 +61,9 @@ class Square extends Component {
       >
         {children}
       </div>,
+    /* eslint-disable function-paren-newline */
     )
+    /* eslint-enable function-paren-newline */
   }
 }
 
@@ -74,7 +78,9 @@ Square.propTypes = {
   fen: PropTypes.string.isRequired, // injected by react-redux
   isBlackSquare: PropTypes.bool.isRequired,
   isOver: PropTypes.bool.isRequired, // injected by react-dnd
+  /* eslint-disable react/forbid-prop-types */
   item: PropTypes.object, // injected by react-dnd
+  /* eslint-enable react/forbid-prop-types */
   onDragMove: PropTypes.func.isRequired, // injected by react-redux
   onMouseOutSquare: PropTypes.func.isRequired, // injected by react-redux
   onMouseOverSquare: PropTypes.func.isRequired, // injected by react-redux

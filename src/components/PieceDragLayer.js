@@ -75,7 +75,9 @@ class PieceDragLayer extends Component {
 }
 
 PieceDragLayer.propTypes = {
+  /* eslint-disable react/forbid-prop-types */
   item: PropTypes.object, // injected by react-dnd
+  /* eslint-enable react/forbid-prop-types */
   itemType: PropTypes.string, // injected by react-dnd
   isDragging: PropTypes.bool.isRequired, // injected by react-dnd
 }

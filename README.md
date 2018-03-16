@@ -37,7 +37,8 @@ class App extends Component {
         orientation="b" // ['w', 'b'] default: 'w'
         pieceTheme="uscf" // ['alpha', 'uscf', 'wikipedia'] default: 'wikipedia'
         showCoordinates={false} // default: true
-        size={400} // default: 400
+        size={400} // string ('100%') or number of pixels. if expressed as a percentage,
+        // the board will resize on the window.resize event. default: 400
         whiteSquareColour="aliceblue" // default: '#f0d9b5'
       />
     )
@@ -48,7 +49,6 @@ export default App
 ```
 
 ## TODO:
-- handle window resizing
 - docs
 - sparePieces prop (if set, can drag pieces onto board)
 - animation?

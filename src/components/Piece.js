@@ -54,7 +54,9 @@ class Piece extends Component {
       piece,
     } = this.props
 
+    /* eslint-disable function-paren-newline */
     return connectDragSource(
+    /* eslint-enable function-paren-newline */
       <img
         alt={piece}
         ref={(el) => { this.pieceImage = el }}
