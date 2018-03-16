@@ -18,9 +18,11 @@ class App extends Component {
   render() {
     return (
       <Chessboard
-        // dropOffBoard // default: false
+        // dropOffBoard // if a piece is dragged off the board, remove it. default: false
         blackSquareColour="steelblue" // default: '#b58863'
-        fen="rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2" // default: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR'
+        fen="rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R" // the 'pieces' part of a fen string (additional info
+        // such as side to move will be stripped). ['start' | 'empty'] also valid
+        // default: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR'
         // isDraggable={false} // default: true
         onChange={(oldPos, newPos) => console.log('onChange fired', oldPos, newPos)}
         onDragMove={(algebraic, fromSquare, piece, fen, orientation) =>
@@ -40,7 +42,7 @@ class App extends Component {
         pieceTheme="uscf" // ['alpha', 'uscf', 'wikipedia'] default: 'wikipedia'
         showCoordinates={false} // default: true
         size={400} // string ('100%') or number of pixels. if expressed as a percentage,
-        // the board will resize on the window.resize event. default: 400
+        // the board will resize on the window resize event. default: 400
         whiteSquareColour="aliceblue" // default: '#f0d9b5'
       />
     )
