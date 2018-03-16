@@ -27,6 +27,8 @@ const App = () => (
     showCoordinates={false} // Default: true
     size={400} // String ('100%', of container) | number (px). If expressed as a percentage,
     // the board will resize with the window resize event. default: 400
+    sparePieces={true} // Spare pieces can be dragged on to the board, for setting
+    // up positions. Default: false
     style={{
       border: '2px solid lightgrey',
     }}
@@ -54,7 +56,6 @@ export default App
 ```
 
 ## TODO:
-- sparePieces prop (if set, can drag pieces onto board)
 - animation?
 - tests
 - examples (PGN viewer etc.)

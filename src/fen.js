@@ -25,11 +25,13 @@ export const makeMove = (fen, piece, fromSquare, toSquare) => {
   // update the fen
   const fenParts = getFenParts(fen)
 
-  // remove the piece from the fromSquare
-  const fromSquareFile = fromSquare.charCodeAt(0) - 97
-  const fromSquareRank = Math.abs(parseInt(fromSquare.charAt(1), 10) - 1 - 7)
-  fenParts[fromSquareRank] = fenParts[fromSquareRank]
-    .replace(/./g, (c, i) => ((i === fromSquareFile) ? '1' : c))
+  // remove the piece from the fromSquare, if it's not a spare piece
+  if (fromSquare !== 'spare') {
+    const fromSquareFile = fromSquare.charCodeAt(0) - 97
+    const fromSquareRank = Math.abs(parseInt(fromSquare.charAt(1), 10) - 1 - 7)
+    fenParts[fromSquareRank] = fenParts[fromSquareRank]
+      .replace(/./g, (c, i) => ((i === fromSquareFile) ? '1' : c))
+  }
 
   // put the piece on the toSquare
   // toSquare will be null if dropOffBoard is true and the piece was dragged off the board
