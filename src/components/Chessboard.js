@@ -67,17 +67,26 @@ class Chessboard extends Component {
   }
 
   render() {
-    const { height, isDraggable, width } = this.props
+    const {
+      height,
+      isDraggable,
+      style,
+      width,
+    } = this.props
+
+    const baseStyles = {
+      display: 'flex',
+      flexWrap: 'wrap',
+      height,
+      width,
+    }
+    const combinedStyles = Object.assign({}, baseStyles, style)
+
     return (
       <div
         className="chessboard"
         ref={(el) => { this.container = el }}
-        style={{
-          height,
-          width,
-          display: 'flex',
-          flexWrap: 'wrap',
-        }}
+        style={combinedStyles}
       >
         {this.renderSquares()}
         {isDraggable && <PieceDragLayer />}
@@ -93,11 +102,15 @@ Chessboard.propTypes = {
   orientation: PropTypes.oneOf(orientationTypes).isRequired, // injected by react-redux
   setHeight: PropTypes.func.isRequired, // injected by react-redux
   showCoordinates: PropTypes.bool.isRequired, // injected by react-redux
+  /* eslint-disable react/forbid-prop-types */
+  style: PropTypes.object,
+  /* eslint-enable react/forbid-prop-types */
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 }
 
 Chessboard.defaultProps = {
   height: null,
+  style: {},
 }
 
 const mapState = state => ({
@@ -106,7 +119,6 @@ const mapState = state => ({
   isDraggable: state.isDraggable,
   orientation: state.orientation,
   showCoordinates: state.showCoordinates,
-  // width: state.width,
 })
 
 const mapDispatch = dispatch => ({

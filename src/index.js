@@ -118,10 +118,13 @@ class ChessboardProvider extends Component {
   }
 
   render() {
-    const { size } = this.props
+    const { size, style } = this.props
     return (
       <Provider store={store}>
-        <Chessboard width={size} />
+        <Chessboard
+          style={style}
+          width={size}
+        />
       </Provider>
     )
   }
@@ -144,6 +147,9 @@ ChessboardProvider.propTypes = {
   pieceTheme: PropTypes.oneOf(pieceThemeTypes),
   showCoordinates: PropTypes.bool,
   size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  /* eslint-disable react/forbid-prop-types */
+  style: PropTypes.object,
+  /* eslint-enable react/forbid-prop-types */
   whiteSquareColour: PropTypes.string,
 }
 
@@ -164,6 +170,7 @@ ChessboardProvider.defaultProps = {
   pieceTheme: initialState.pieceTheme,
   showCoordinates: initialState.showCoordinates,
   size: initialState.width,
+  style: {},
   whiteSquareColour: initialState.whiteSquareColour,
 }
 

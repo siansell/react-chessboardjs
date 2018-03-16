@@ -27,6 +27,9 @@ const App = () => (
     showCoordinates={false} // Default: true
     size={400} // String ('100%', of container) | number (px). If expressed as a percentage,
     // the board will resize with the window resize event. default: 400
+    style={{
+      border: '2px solid lightgrey',
+    }}
     whiteSquareColour="aliceblue" // Default: '#f0d9b5'
 
     // Events: similar to chessboard.js events
@@ -51,7 +54,6 @@ export default App
 ```
 
 ## TODO:
-- border for chessboard? styles prop? need to add classnames to pieces, squares
 - sparePieces prop (if set, can drag pieces onto board)
 - animation?
 - tests
