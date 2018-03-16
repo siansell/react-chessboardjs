@@ -1,0 +1,19 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true
+  },
+  "extends": "airbnb",
+  "rules": {
+    "max-len": [
+      0,
+      {
+        "code": 120
+      }
+    ],
+    "no-underscore-dangle": 0,
+    "react/jsx-filename-extension": 0,
+    "react/no-did-mount-set-state": 0,
+    "semi": 0
+  }
+}
