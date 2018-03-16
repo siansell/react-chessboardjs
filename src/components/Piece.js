@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { DragSource } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend'
+import classNames from 'classnames'
 
 import { makeMove as getNewFen } from '../fen'
 import { orientationTypes, pieceTypes, pieceThemeTypes } from '../types'
@@ -52,24 +53,32 @@ class Piece extends Component {
       isDragging,
       isDraggable,
       piece,
+      square,
     } = this.props
 
     const colour = piece === piece.toUpperCase() ? 'w' : 'b'
+
+    const pieceClasses = classNames(
+      { piece: true },
+      { [`piece-${piece}`]: true },
+      { [`piece-${colour}`]: true },
+      { 'piece-spare': square === 'spare' },
+    )
 
     /* eslint-disable function-paren-newline */
     return connectDragSource(
     /* eslint-enable function-paren-newline */
       <img
         alt={piece}
-        className={`piece piece-${piece} piece-${colour}`}
+        className={pieceClasses}
         ref={(el) => { this.pieceImage = el }}
         src={pieceImage}
         style={{
           cursor: isDraggable ? 'pointer' : 'auto',
+          flex: square === 'spare' ? 1 : null,
           height: '100%',
           opacity: isDragging ? 0.2 : 1,
           pointerEvents: isDraggable ? 'auto' : 'none',
-          width: '100%',
         }}
       />)
   }

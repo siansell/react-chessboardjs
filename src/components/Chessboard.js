@@ -8,6 +8,7 @@ import _ from 'lodash'
 import Coordinate from './Coordinate'
 import Piece from './Piece'
 import PieceDragLayer from './PieceDragLayer'
+import SparePieces from './SparePieces'
 import Square from './Square'
 
 import { setHeightAction } from '../store'
@@ -70,7 +71,9 @@ class Chessboard extends Component {
     const {
       height,
       isDraggable,
+      orientation,
       style,
+      sparePieces,
       width,
     } = this.props
 
@@ -83,13 +86,27 @@ class Chessboard extends Component {
     const combinedStyles = Object.assign({}, baseStyles, style)
 
     return (
-      <div
-        className="chessboard"
-        ref={(el) => { this.container = el }}
-        style={combinedStyles}
-      >
-        {this.renderSquares()}
-        {isDraggable && <PieceDragLayer />}
+      <div className="chessboardContainer">
+        {sparePieces && (
+          <SparePieces
+            colour={orientation === 'w' ? 'b' : 'w'}
+            orientation={orientation}
+          />
+        )}
+        <div
+          className="chessboard"
+          ref={(el) => { this.container = el }}
+          style={combinedStyles}
+        >
+          {this.renderSquares()}
+          {isDraggable && <PieceDragLayer />}
+        </div>
+        {sparePieces && (
+          <SparePieces
+            colour={orientation}
+            orientation={orientation}
+          />
+        )}
       </div>
     )
   }
@@ -103,6 +120,7 @@ Chessboard.propTypes = {
   setHeight: PropTypes.func.isRequired, // injected by react-redux
   showCoordinates: PropTypes.bool.isRequired, // injected by react-redux
   /* eslint-disable react/forbid-prop-types */
+  sparePieces: PropTypes.bool.isRequired,
   style: PropTypes.object,
   /* eslint-enable react/forbid-prop-types */
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
@@ -119,6 +137,7 @@ const mapState = state => ({
   isDraggable: state.isDraggable,
   orientation: state.orientation,
   showCoordinates: state.showCoordinates,
+  sparePieces: state.sparePieces,
 })
 
 const mapDispatch = dispatch => ({

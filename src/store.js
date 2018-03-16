@@ -19,6 +19,7 @@ export const initialState = {
     onSnapbackEnd: noop,
   },
   fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR',
+  height: 0,
   isDraggable: true,
   orientation: 'w',
   pieceTheme: 'wikipedia',
