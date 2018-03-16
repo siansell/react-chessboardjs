@@ -6,33 +6,38 @@ import uglify from 'rollup-plugin-uglify'
 
 const env = process.env.NODE_ENV
 
+const plugins = [
+  babel({
+    exclude: ['**/node_modules/**'],
+  }),
+  commonjs({
+    include: 'node_modules/**',
+    namedExports: {
+      'node_modules/react-dnd/lib/index.js': [
+        'DragDropContext',
+        'DragLayer',
+        'DragSource',
+        'DropTarget',
+      ],
+    },
+  }),
+  replace({
+    'process.env.NODE_ENV': JSON.stringify(env),
+  }),
+  resolve(),
+]
+
+if (env === 'production') {
+  plugins.push(uglify())
+}
+
 export default {
   input: './src/index.js',
   output: {
     file: './dist/index.js',
     format: 'cjs',
   },
-  plugins: [
-    babel({
-      exclude: ['**/node_modules/**'],
-    }),
-    commonjs({
-      include: 'node_modules/**',
-      namedExports: {
-        'node_modules/react-dnd/lib/index.js': [
-          'DragDropContext',
-          'DragLayer',
-          'DragSource',
-          'DropTarget',
-        ],
-      },
-    }),
-    replace({
-      'process.env.NODE_ENV': JSON.stringify(env),
-    }),
-    resolve(),
-    uglify(),
-  ],
+  plugins,
   external: [
     'react',
     /*
