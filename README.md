@@ -1,6 +1,6 @@
 ## react-chessboardjs
 
-**Work in progress**. Use at own risk.
+**Work in progress**. Use at own risk. BAD THINGS MIGHT HAPPEN IF THE CHESSBOARD ON YOUR WEBSITE BREAKS.
 
 `yarn add react-chessboardjs`
 
