@@ -21,9 +21,7 @@ import store, {
 } from './store'
 
 class ChessboardProvider extends Component {
-  constructor(props) {
-    super(props)
-
+  componentWillMount() {
     // set state from passed in props
     const {
       blackSquareColour,
@@ -43,7 +41,7 @@ class ChessboardProvider extends Component {
       showCoordinates,
       sparePieces,
       whiteSquareColour,
-    } = props
+    } = this.props
     // other props
     if (blackSquareColour !== initialState.blackSquareColour) {
       store.dispatch(setBlackSquareColourAction(blackSquareColour))
