@@ -12,7 +12,7 @@ All props are optional.
 
 ```JSX
 import React, { Component } from 'react'
-import Chessboard from '@siansell/react-chessboard'
+import Chessboard from 'react-chessboardjs'
 
 class App extends Component {
   render() {
