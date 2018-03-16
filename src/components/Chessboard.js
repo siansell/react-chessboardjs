@@ -75,19 +75,12 @@ class Chessboard extends Component {
         style={{
           height,
           width,
+          display: 'flex',
+          flexWrap: 'wrap',
         }}
       >
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            height: '100%',
-            width: '100%',
-          }}
-        >
-          {this.renderSquares()}
-          {isDraggable && <PieceDragLayer />}
-        </div>
+        {this.renderSquares()}
+        {isDraggable && <PieceDragLayer />}
       </div>
     )
   }

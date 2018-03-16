@@ -51,6 +51,7 @@ export default App
 ```
 
 ## TODO:
+- border for chessboard? styles prop? need to add classnames to pieces, squares
 - sparePieces prop (if set, can drag pieces onto board)
 - animation?
 - tests
