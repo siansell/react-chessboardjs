@@ -17,6 +17,7 @@ import store, {
   setPieceThemeAction,
   setWhiteSquareColourAction,
   setShowCoordinatesAction,
+  setSparePiecesAction,
 } from './store'
 
 class ChessboardProvider extends Component {
@@ -40,6 +41,7 @@ class ChessboardProvider extends Component {
       orientation,
       pieceTheme,
       showCoordinates,
+      sparePieces,
       whiteSquareColour,
     } = props
     // other props
@@ -63,6 +65,9 @@ class ChessboardProvider extends Component {
     }
     if (showCoordinates !== initialState.showCoordinates) {
       store.dispatch(setShowCoordinatesAction(showCoordinates))
+    }
+    if (sparePieces !== initialState.sparePieces) {
+      store.dispatch(setSparePiecesAction(sparePieces))
     }
     if (whiteSquareColour !== initialState.whiteSquareColour) {
       store.dispatch(setWhiteSquareColourAction(whiteSquareColour))
@@ -89,6 +94,7 @@ class ChessboardProvider extends Component {
       orientation,
       pieceTheme,
       showCoordinates,
+      sparePieces,
       whiteSquareColour,
     } = nextProps
     if (blackSquareColour !== this.props.blackSquareColour) {
@@ -111,6 +117,9 @@ class ChessboardProvider extends Component {
     }
     if (showCoordinates !== this.props.showCoordinates) {
       store.dispatch(setShowCoordinatesAction(showCoordinates))
+    }
+    if (sparePieces !== this.props.sparePieces) {
+      store.dispatch(setSparePiecesAction(sparePieces))
     }
     if (whiteSquareColour !== this.props.whiteSquareColour) {
       store.dispatch(setWhiteSquareColourAction(whiteSquareColour))
@@ -148,6 +157,7 @@ ChessboardProvider.propTypes = {
   showCoordinates: PropTypes.bool,
   size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /* eslint-disable react/forbid-prop-types */
+  sparePieces: PropTypes.bool,
   style: PropTypes.object,
   /* eslint-enable react/forbid-prop-types */
   whiteSquareColour: PropTypes.string,
@@ -170,6 +180,7 @@ ChessboardProvider.defaultProps = {
   pieceTheme: initialState.pieceTheme,
   showCoordinates: initialState.showCoordinates,
   size: initialState.width,
+  sparePieces: initialState.sparePieces,
   style: {},
   whiteSquareColour: initialState.whiteSquareColour,
 }

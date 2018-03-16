@@ -23,6 +23,7 @@ export const initialState = {
   orientation: 'w',
   pieceTheme: 'wikipedia',
   showCoordinates: true,
+  sparePieces: false,
   width: 400,
   whiteSquareColour: '#f0d9b5',
 }
@@ -37,6 +38,7 @@ const SET_EVENT_FUNC = 'SET_EVENT_FUNC'
 const SET_ORIENTATION = 'SET_ORIENTATION'
 const SET_PIECE_THEME = 'SET_PIECE_THEME'
 const SET_SHOW_COORDINATES = 'SET_SHOW_COORDINATES'
+const SET_SPARE_PIECES = 'SET_SPARE_PIECES'
 const SET_WHITE_SQUARE_COLOUR = 'SET_WHITE_SQUARE_COLOUR'
 
 export const makeMoveAction = (piece, fromSquare, toSquare) => (dispatch, getState) => {
@@ -60,6 +62,7 @@ export const setOrientationAction = orientation => ({ type: SET_ORIENTATION, pay
 export const setPieceThemeAction = theme => ({ type: SET_PIECE_THEME, payload: theme })
 export const setShowCoordinatesAction = show => ({ type: SET_SHOW_COORDINATES, payload: show })
 export const setHeightAction = height => ({ type: SET_HEIGHT, payload: height })
+export const setSparePiecesAction = value => ({ type: SET_SPARE_PIECES, payload: value })
 export const setWhiteSquareColourAction = colour => ({ type: SET_WHITE_SQUARE_COLOUR, payload: colour })
 
 const reducer = (state = initialState, action) => {
@@ -125,6 +128,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         showCoordinates: action.payload,
+      }
+    case SET_SPARE_PIECES:
+      return {
+        ...state,
+        sparePieces: action.payload,
       }
     case SET_WHITE_SQUARE_COLOUR:
       return {
