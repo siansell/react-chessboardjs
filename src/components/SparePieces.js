@@ -6,7 +6,7 @@ import Piece from './Piece'
 
 import { orientationTypes } from '../types'
 
-const SparePieces = ({ colour, height }) => (
+const SparePieces = ({ colour, height, width }) => (
   <div
     className="sparePieces"
     style={{
@@ -14,6 +14,7 @@ const SparePieces = ({ colour, height }) => (
       height,
       flexDirection: 'row',
       textAlign: 'center',
+      width,
     }}
   >
     <Piece
@@ -45,7 +46,8 @@ const SparePieces = ({ colour, height }) => (
 
 SparePieces.propTypes = {
   colour: PropTypes.oneOf(orientationTypes).isRequired,
-  height: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired, // injected by react-redux
+  width: PropTypes.number.isRequired,
 }
 
 const mapState = state => ({

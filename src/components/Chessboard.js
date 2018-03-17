@@ -109,7 +109,7 @@ class Chessboard extends Component {
     return (
       <div className="chessboardContainer">
         {sparePieces && (
-          <SparePieces colour={orientation === 'w' ? 'b' : 'w'} />
+          <SparePieces colour={orientation === 'w' ? 'b' : 'w'} width={width} />
         )}
         <div
           className="chessboard"
@@ -120,7 +120,7 @@ class Chessboard extends Component {
           {isDraggable && <PieceDragLayer />}
         </div>
         {sparePieces && (
-          <SparePieces colour={orientation} />
+          <SparePieces colour={orientation} width={width} />
         )}
       </div>
     )
