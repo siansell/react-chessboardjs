@@ -16,8 +16,8 @@ import Chessboard from 'react-chessboardjs'
 
 const App = () => (
   <Chessboard
-    dropOffBoard={false} // If a piece is dragged off the board, remove it. Default: false
     blackSquareColour="steelblue" // Default: '#b58863'
+    dropOffBoard={false} // If a piece is dragged off the board, remove it. Default: false
     fen="rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R" // The 'pieces' part of a fen string
     // (additional info such as side to move will be stripped). ['start' | 'empty'] also valid.
     // Default: 'start'
