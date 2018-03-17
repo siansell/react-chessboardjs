@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { DragDropContext } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
-import _ from 'lodash'
+import ReactResizeDetector from 'react-resize-detector'
 
 import Coordinate from './Coordinate'
 import Piece from './Piece'
@@ -17,30 +17,8 @@ import { orientationTypes } from '../types'
 
 class Chessboard extends Component {
   componentDidMount() {
-    const { setHeight, width } = this.props
+    const { setHeight } = this.props
     setHeight(this.container.offsetWidth)
-    // if the width is expressed as a percentage '100%', '80%' etc.,
-    // resize the board with the window resize event
-    if (typeof width === 'string') {
-      this.resizeEventListenerFunc = _.debounce(this.setHeight, 100)
-      window.addEventListener('resize', this.resizeEventListenerFunc, false)
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (typeof nextProps.width !== typeof this.props.width) {
-      if (typeof nextProps.width === 'number') {
-        this.props.setHeight(nextProps.width)
-        window.removeEventListener('resize', this.resizeEventListenerFunc)
-      }
-      if (typeof nextProps.width === 'string') {
-        this.resizeEventListenerFunc = _.debounce(this.setHeight, 100)
-        window.addEventListener('resize', this.resizeEventListenerFunc, false)
-        setTimeout(() => {
-          this.setHeight()
-        }, 0)
-      }
-    }
   }
 
   setHeight = () => {
@@ -107,20 +85,30 @@ class Chessboard extends Component {
     const combinedStyles = Object.assign({}, baseStyles, style)
 
     return (
-      <div className="chessboardContainer">
+      <div
+        className="chessboardContainer"
+        ref={(el) => { this.outerContainer = el }}
+      >
         {sparePieces && (
-          <SparePieces colour={orientation === 'w' ? 'b' : 'w'} width={width} />
+          <SparePieces
+            colour={orientation === 'w' ? 'b' : 'w'}
+            width={width}
+          />
         )}
         <div
           className="chessboard"
           ref={(el) => { this.container = el }}
           style={combinedStyles}
         >
+          <ReactResizeDetector handleWidth onResize={this.setHeight} />
           {this.renderSquares()}
           {isDraggable && <PieceDragLayer />}
         </div>
         {sparePieces && (
-          <SparePieces colour={orientation} width={width} />
+          <SparePieces
+            colour={orientation}
+            width={width}
+          />
         )}
       </div>
     )
