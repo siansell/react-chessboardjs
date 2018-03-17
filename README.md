@@ -56,7 +56,6 @@ export default App
 ```
 
 ## TODO:
-- layout for spare pieces with fixed board size
 - animation?
 - tests
 - examples (PGN viewer etc.)
