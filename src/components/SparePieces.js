@@ -6,15 +6,13 @@ import Piece from './Piece'
 
 import { orientationTypes } from '../types'
 
-const SparePieces = ({ colour, height, orientation }) => (
+const SparePieces = ({ colour, height }) => (
   <div
     className="sparePieces"
     style={{
       display: 'flex',
       height,
       flexDirection: 'row',
-      marginBottom: orientation !== colour ? height / 8 : 0,
-      marginTop: orientation === colour ? height / 8 : 0,
       textAlign: 'center',
     }}
   >

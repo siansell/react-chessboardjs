@@ -15,9 +15,9 @@ import store, {
   setEventFuncAction,
   setOrientationAction,
   setPieceThemeAction,
-  setWhiteSquareColourAction,
   setShowCoordinatesAction,
   setSparePiecesAction,
+  setWhiteSquareColourAction,
 } from './store'
 
 class ChessboardProvider extends Component {
@@ -125,12 +125,12 @@ class ChessboardProvider extends Component {
   }
 
   render() {
-    const { size, style } = this.props
+    const { width, style } = this.props
     return (
       <Provider store={store}>
         <Chessboard
           style={style}
-          width={size}
+          width={width}
         />
       </Provider>
     )
@@ -153,7 +153,7 @@ ChessboardProvider.propTypes = {
   orientation: PropTypes.oneOf(orientationTypes),
   pieceTheme: PropTypes.oneOf(pieceThemeTypes),
   showCoordinates: PropTypes.bool,
-  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /* eslint-disable react/forbid-prop-types */
   sparePieces: PropTypes.bool,
   style: PropTypes.object,
@@ -177,7 +177,7 @@ ChessboardProvider.defaultProps = {
   orientation: initialState.orientation,
   pieceTheme: initialState.pieceTheme,
   showCoordinates: initialState.showCoordinates,
-  size: initialState.width,
+  width: initialState.width,
   sparePieces: initialState.sparePieces,
   style: {},
   whiteSquareColour: initialState.whiteSquareColour,

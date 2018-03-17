@@ -22,8 +22,29 @@ class Chessboard extends Component {
     // if the width is expressed as a percentage '100%', '80%' etc.,
     // resize the board with the window resize event
     if (typeof width === 'string') {
-      window.addEventListener('resize', _.debounce(() => setHeight(this.container.offsetWidth), 100), false)
+      this.resizeEventListenerFunc = _.debounce(this.setHeight, 100)
+      window.addEventListener('resize', this.resizeEventListenerFunc, false)
     }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (typeof nextProps.width !== typeof this.props.width) {
+      if (typeof nextProps.width === 'number') {
+        this.props.setHeight(nextProps.width)
+        window.removeEventListener('resize', this.resizeEventListenerFunc)
+      }
+      if (typeof nextProps.width === 'string') {
+        this.resizeEventListenerFunc = _.debounce(this.setHeight, 100)
+        window.addEventListener('resize', this.resizeEventListenerFunc, false)
+        setTimeout(() => {
+          this.setHeight()
+        }, 0)
+      }
+    }
+  }
+
+  setHeight = () => {
+    this.props.setHeight(this.container.offsetWidth)
   }
 
   renderSquares = () => {
@@ -80,7 +101,7 @@ class Chessboard extends Component {
     const baseStyles = {
       display: 'flex',
       flexWrap: 'wrap',
-      height,
+      height: this.container ? this.container.offsetWidth : height,
       width,
     }
     const combinedStyles = Object.assign({}, baseStyles, style)
@@ -88,10 +109,7 @@ class Chessboard extends Component {
     return (
       <div className="chessboardContainer">
         {sparePieces && (
-          <SparePieces
-            colour={orientation === 'w' ? 'b' : 'w'}
-            orientation={orientation}
-          />
+          <SparePieces colour={orientation === 'w' ? 'b' : 'w'} />
         )}
         <div
           className="chessboard"
@@ -102,10 +120,7 @@ class Chessboard extends Component {
           {isDraggable && <PieceDragLayer />}
         </div>
         {sparePieces && (
-          <SparePieces
-            colour={orientation}
-            orientation={orientation}
-          />
+          <SparePieces colour={orientation} />
         )}
       </div>
     )

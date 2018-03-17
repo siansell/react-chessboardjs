@@ -51,6 +51,7 @@ export const makeMoveAction = (piece, fromSquare, toSquare) => (dispatch, getSta
 }
 export const setBlackSquareColourAction = colour => ({ type: SET_BLACK_SQUARE_COLOUR, payload: colour })
 export const setDropOffBoardAction = value => ({ type: SET_DROP_OFF_BOARD, payload: value })
+export const setEventFuncAction = (event, f) => ({ type: SET_EVENT_FUNC, payload: { event, func: f } })
 export const setFenAction = fen => (dispatch, getState) => {
   const oldPos = getState().fen
   dispatch({ type: SET_FEN, payload: fen })
@@ -58,11 +59,10 @@ export const setFenAction = fen => (dispatch, getState) => {
   getState().events.onChange(oldPos, newPos)
 }
 export const setIsDraggableAction = value => ({ type: SET_IS_DRAGGABLE, payload: value })
-export const setEventFuncAction = (event, f) => ({ type: SET_EVENT_FUNC, payload: { event, func: f } })
+export const setHeightAction = height => ({ type: SET_HEIGHT, payload: height })
 export const setOrientationAction = orientation => ({ type: SET_ORIENTATION, payload: orientation })
 export const setPieceThemeAction = theme => ({ type: SET_PIECE_THEME, payload: theme })
 export const setShowCoordinatesAction = show => ({ type: SET_SHOW_COORDINATES, payload: show })
-export const setHeightAction = height => ({ type: SET_HEIGHT, payload: height })
 export const setSparePiecesAction = value => ({ type: SET_SPARE_PIECES, payload: value })
 export const setWhiteSquareColourAction = colour => ({ type: SET_WHITE_SQUARE_COLOUR, payload: colour })
 
