@@ -47,7 +47,7 @@ const SparePieces = ({ colour, height, width }) => (
 SparePieces.propTypes = {
   colour: PropTypes.oneOf(orientationTypes).isRequired,
   height: PropTypes.number.isRequired, // injected by react-redux
-  width: PropTypes.number.isRequired,
+  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
 }
 
 const mapState = state => ({
