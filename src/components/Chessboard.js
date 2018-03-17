@@ -22,6 +22,7 @@ class Chessboard extends Component {
   }
 
   setHeight = () => {
+    if (!this.container) return
     this.props.setHeight(this.container.offsetWidth)
   }
 
