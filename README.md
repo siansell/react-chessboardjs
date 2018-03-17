@@ -55,7 +55,3 @@ const App = () => (
 
 export default App
 ```
-
-## TODO:
-- tests
-- examples (PGN viewer etc.)
