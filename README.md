@@ -57,6 +57,5 @@ export default App
 ```
 
 ## TODO:
-- animation?
 - tests
 - examples (PGN viewer etc.)
