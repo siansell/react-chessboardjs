@@ -34,7 +34,7 @@ const App = () => (
     width={400} // String ('100%', of container) | number (px). If expressed as a percentage,
     // the board will resize with its container via the window resize event. default: 400
 
-    // Events: similar to chessboard.js events
+    // Events: similar to chessboard.js events. Additional onResize event
     onChange={(oldPos, newPos) => console.log('onChange fired', oldPos, newPos)}
     onDragMove={(algebraic, fromSquare, piece, fen, orientation) =>
       console.log('onDragMove fired', algebraic, fromSquare, piece, fen, orientation)}
@@ -47,6 +47,7 @@ const App = () => (
     onMouseOverSquare={(algebraic, piece, fen, orientation) =>
       console.log('onMouseOverSquare fired', algebraic, piece, fen, orientation)}
     onMoveEnd={(oldPos, newPos) => console.log('onMoveEnd fired', oldPos, newPos)}
+    onResize={(oldWidth, newWidth) => console.log('onResize fired', oldWidth, newWidth)}
     onSnapbackEnd={(piece, square, fen, orientation) =>
       console.log('onSnapbackEnd fired', piece, square, fen, orientation)}
   />
@@ -56,7 +57,6 @@ export default App
 ```
 
 ## TODO:
-- onResize event?
 - animation?
 - tests
 - examples (PGN viewer etc.)

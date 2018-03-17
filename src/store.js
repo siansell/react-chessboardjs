@@ -16,6 +16,7 @@ export const initialState = {
     onMouseOutSquare: noop,
     onMouseOverSquare: noop,
     onMoveEnd: noop,
+    onResize: noop,
     onSnapbackEnd: noop,
   },
   fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR',
@@ -59,7 +60,12 @@ export const setFenAction = fen => (dispatch, getState) => {
   getState().events.onChange(oldPos, newPos)
 }
 export const setIsDraggableAction = value => ({ type: SET_IS_DRAGGABLE, payload: value })
-export const setHeightAction = height => ({ type: SET_HEIGHT, payload: height })
+export const setHeightAction = height => (dispatch, getState) => {
+  const oldHeight = getState().height
+  dispatch({ type: SET_HEIGHT, payload: height })
+  const newHeight = getState().height
+  getState().events.onResize(oldHeight, newHeight)
+}
 export const setOrientationAction = orientation => ({ type: SET_ORIENTATION, payload: orientation })
 export const setPieceThemeAction = theme => ({ type: SET_PIECE_THEME, payload: theme })
 export const setShowCoordinatesAction = show => ({ type: SET_SHOW_COORDINATES, payload: show })

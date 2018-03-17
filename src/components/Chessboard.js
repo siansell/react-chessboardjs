@@ -100,7 +100,10 @@ class Chessboard extends Component {
           ref={(el) => { this.container = el }}
           style={combinedStyles}
         >
-          <ReactResizeDetector handleWidth onResize={this.setHeight} />
+          <ReactResizeDetector
+            handleWidth
+            onResize={() => this.setHeight()}
+          />
           {this.renderSquares()}
           {isDraggable && <PieceDragLayer />}
         </div>
