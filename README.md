@@ -56,6 +56,10 @@ const App = () => (
 export default App
 ```
 
+### Requirements
+
+Tested with React 16.2.0.
+
 ### SSR
 
 [Next.js](https://github.com/zeit/next.js/) doesn't support importing images out of the box. Use [next-images](https://github.com/arefaslani/next-images).
