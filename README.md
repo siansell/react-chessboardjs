@@ -55,3 +55,7 @@ const App = () => (
 
 export default App
 ```
+
+### SSR
+
+[Next.js](https://github.com/zeit/next.js/) doesn't support importing images out of the box. Use [next-images](https://github.com/arefaslani/next-images).
