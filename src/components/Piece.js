@@ -116,7 +116,7 @@ const pieceSource = {
     return props.isDraggable
   },
 
-  beginDrag(props, monitor) {
+  beginDrag(props) {
     const {
       fen,
       height,
