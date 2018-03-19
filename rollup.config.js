@@ -12,6 +12,10 @@ const plugins = [
   }),
   commonjs({
     include: 'node_modules/**',
+    exclude: [
+      'node_modules/uuid/lib/rng.js', // causing a build error, and we don't seem to need it
+      'node_modules/asap/raw.js', // causing a build error, and we don't seem to need it https://github.com/kriskowal/asap/issues/64
+    ],
     namedExports: {
       'node_modules/react-dnd/lib/index.js': [
         'DragDropContext',
@@ -19,9 +23,6 @@ const plugins = [
         'DragSource',
         'DropTarget',
       ],
-      // 'node_modules/uuid/lib/rng.js': [
-      //   'commonjs-external:crypto',
-      // ],
     },
   }),
   replace({
@@ -44,13 +45,7 @@ export default {
   },
   plugins,
   external: [
-    // 'crypto',
     'react',
-    /*
-    asap causes a build warning, and also prevents rollup --watch running.
-    Not sure which package is pulling it in as a dependency, but we don't seem to need it.
-    So let's just exclude it.
-    Ref: https://github.com/kriskowal/asap/issues/64 */
-    'asap',
+    'react-dom',
   ],
 }
