@@ -26,7 +26,6 @@ export const initialState = {
   pieceTheme: 'wikipedia',
   showCoordinates: true,
   sparePieces: false,
-  uuid: null,
   width: 400,
   whiteSquareColour: '#f0d9b5',
 }
