@@ -73,6 +73,7 @@ export const setSparePiecesAction = value => ({ type: SET_SPARE_PIECES, payload:
 export const setWhiteSquareColourAction = colour => ({ type: SET_WHITE_SQUARE_COLOUR, payload: colour })
 
 const reducer = (state = initialState, action) => {
+  // console.log(action)
   switch (action.type) {
     case MAKE_MOVE: {
       const { piece, fromSquare, toSquare } = action.payload

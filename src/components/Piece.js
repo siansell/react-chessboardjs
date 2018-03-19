@@ -17,6 +17,7 @@ class Piece extends Component {
   }
 
   componentDidMount() {
+    this.mounted = true
     const { piece, pieceTheme } = this.props
     this.loadImage(piece, pieceTheme)
   }
@@ -29,9 +30,14 @@ class Piece extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this.mounted = false
+  }
+
   loadImage = async (piece, pieceTheme) => {
     const pieceColour = piece.toUpperCase() === piece ? 'w' : 'b'
     const pieceImage = await import(`../src/components/assets/chesspieces/${pieceTheme}/${pieceColour}${piece.toUpperCase()}.svg`)
+    if (!this.mounted) return
     this.setState({
       pieceImage,
     }, () => {
