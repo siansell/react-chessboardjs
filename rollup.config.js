@@ -19,6 +19,9 @@ const plugins = [
         'DragSource',
         'DropTarget',
       ],
+      // 'node_modules/uuid/lib/rng.js': [
+      //   'commonjs-external:crypto',
+      // ],
     },
   }),
   replace({
@@ -41,7 +44,7 @@ export default {
   },
   plugins,
   external: [
-    'crypto',
+    // 'crypto',
     'react',
     /*
     asap causes a build warning, and also prevents rollup --watch running.

@@ -32,9 +32,9 @@ const App = () => (
     }}
     whiteSquareColour="aliceblue" // Default: '#f0d9b5'
     width={400} // String ('100%', of container) | number (px). If expressed as a percentage,
-    // the board will resize with its container. default: 400
+    // the board will resize with its container. Default: 400
 
-    // Events: similar to chessboard.js events. Additional onResize event
+    // Events: similar to chessboard.js events. Additional onResize, onSquareClick events.
     onChange={(oldPos, newPos) => console.log('onChange fired', oldPos, newPos)}
     onDragMove={(algebraic, fromSquare, piece, fen, orientation) =>
       console.log('onDragMove fired', algebraic, fromSquare, piece, fen, orientation)}
