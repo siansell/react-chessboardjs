@@ -46,6 +46,7 @@ class ChessboardProvider extends Component {
       onMouseOverSquare,
       onResize,
       onSnapbackEnd,
+      onSquareClick,
       orientation,
       pieceTheme,
       showCoordinates,
@@ -91,6 +92,7 @@ class ChessboardProvider extends Component {
     store.dispatch(setEventFuncAction(uuid, 'onMoveEnd', onMoveEnd))
     store.dispatch(setEventFuncAction(uuid, 'onReszize', onResize))
     store.dispatch(setEventFuncAction(uuid, 'onSnapbackEnd', onSnapbackEnd))
+    store.dispatch(setEventFuncAction(uuid, 'onSquareClick', onSquareClick))
   }
 
   componentWillReceiveProps(nextProps) {
@@ -164,6 +166,7 @@ ChessboardProvider.propTypes = {
   onMoveEnd: PropTypes.func,
   onResize: PropTypes.func,
   onSnapbackEnd: PropTypes.func,
+  onSquareClick: PropTypes.func,
   orientation: PropTypes.oneOf(orientationTypes),
   pieceTheme: PropTypes.oneOf(pieceThemeTypes),
   showCoordinates: PropTypes.bool,
@@ -189,6 +192,7 @@ ChessboardProvider.defaultProps = {
   onMoveEnd: initialState.events.onMoveEnd,
   onResize: initialState.events.onResize,
   onSnapbackEnd: initialState.events.onSnapbackEnd,
+  onSquareClick: initialState.events.onSquareClick,
   orientation: initialState.orientation,
   pieceTheme: initialState.pieceTheme,
   showCoordinates: initialState.showCoordinates,

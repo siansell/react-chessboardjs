@@ -34,6 +34,7 @@ class Square extends Component {
       fen,
       onMouseOutSquare,
       onMouseOverSquare,
+      onSquareClick,
       orientation,
       piece,
       whiteSquareColour,
@@ -48,6 +49,15 @@ class Square extends Component {
         onFocus={() => onMouseOverSquare(algebraic, piece, fen, orientation)}
         onMouseOut={() => onMouseOutSquare(algebraic, piece, fen, orientation)}
         onMouseOver={() => onMouseOverSquare(algebraic, piece, fen, orientation)}
+        onClick={(e) => {
+          e.preventDefault()
+          onSquareClick(e.type === 'contextmenu', algebraic, piece, fen, orientation)
+        }}
+        onContextMenu={(e) => {
+          e.preventDefault()
+          onSquareClick(e.type === 'contextmenu', algebraic, piece, fen, orientation)
+        }}
+        role="presentation"
         style={{
           alignItems: 'center',
           backgroundColor: isBlackSquare ? blackSquareColour : whiteSquareColour,
@@ -85,6 +95,7 @@ Square.propTypes = {
   onDragMove: PropTypes.func.isRequired, // injected by react-redux
   onMouseOutSquare: PropTypes.func.isRequired, // injected by react-redux
   onMouseOverSquare: PropTypes.func.isRequired, // injected by react-redux
+  onSquareClick: PropTypes.func.isRequired, // injected by react-redux
   orientation: PropTypes.string.isRequired, // injected by react-redux
   piece: PropTypes.oneOf(pieceTypes),
   whiteSquareColour: PropTypes.string.isRequired, // injected by react-redux
@@ -119,6 +130,7 @@ const mapState = state => ({
   onDragMove: state.events.onDragMove,
   onMouseOutSquare: state.events.onMouseOutSquare,
   onMouseOverSquare: state.events.onMouseOverSquare,
+  onSquareClick: state.events.onSquareClick,
   orientation: state.orientation,
   whiteSquareColour: state.whiteSquareColour,
 })

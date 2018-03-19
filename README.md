@@ -50,6 +50,7 @@ const App = () => (
     onResize={(oldWidth, newWidth) => console.log('onResize fired', oldWidth, newWidth)}
     onSnapbackEnd={(piece, square, fen, orientation) =>
       console.log('onSnapbackEnd fired', piece, square, fen, orientation)}
+    onSquareClick={(isRightClick, square, piece, fen, orientation) => console.log(isRightClick, square, piece, fen, orientation)}
   />
 )
 

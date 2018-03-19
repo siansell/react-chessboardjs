@@ -18,6 +18,7 @@ export const initialState = {
     onMoveEnd: noop,
     onResize: noop,
     onSnapbackEnd: noop,
+    onSquareClick: noop,
   },
   fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR',
   height: 0,
