@@ -22,48 +22,36 @@ const SparePieces = ({
       width,
     }}
   >
-    <div style={{ width: height }}>
-      <Piece
-        piece={colour === 'b' ? 'p' : 'P'}
-        square="spare"
-        uuid={uuid}
-      />
-    </div>
-    <div style={{ width: height }}>
-      <Piece
-        piece={colour === 'b' ? 'r' : 'R'}
-        square="spare"
-        uuid={uuid}
-      />
-    </div>
-    <div style={{ width: height }}>
-      <Piece
-        piece={colour === 'b' ? 'n' : 'N'}
-        square="spare"
-        uuid={uuid}
-      />
-    </div>
-    <div style={{ width: height }}>
-      <Piece
-        piece={colour === 'b' ? 'b' : 'B'}
-        square="spare"
-        uuid={uuid}
-      />
-    </div>
-    <div style={{ width: height }}>
-      <Piece
-        piece={colour === 'b' ? 'q' : 'Q'}
-        square="spare"
-        uuid={uuid}
-      />
-    </div>
-    <div style={{ width: height }}>
-      <Piece
-        piece={colour === 'b' ? 'k' : 'K'}
-        square="spare"
-        uuid={uuid}
-      />
-    </div>
+    <Piece
+      piece={colour === 'b' ? 'p' : 'P'}
+      square="spare"
+      uuid={uuid}
+    />
+    <Piece
+      piece={colour === 'b' ? 'r' : 'R'}
+      square="spare"
+      uuid={uuid}
+    />
+    <Piece
+      piece={colour === 'b' ? 'n' : 'N'}
+      square="spare"
+      uuid={uuid}
+    />
+    <Piece
+      piece={colour === 'b' ? 'b' : 'B'}
+      square="spare"
+      uuid={uuid}
+    />
+    <Piece
+      piece={colour === 'b' ? 'q' : 'Q'}
+      square="spare"
+      uuid={uuid}
+    />
+    <Piece
+      piece={colour === 'b' ? 'k' : 'K'}
+      square="spare"
+      uuid={uuid}
+    />
   </div>
 )
 

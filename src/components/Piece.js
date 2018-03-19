@@ -116,9 +116,10 @@ const pieceSource = {
     return props.isDraggable
   },
 
-  beginDrag(props, monitor, component) {
+  beginDrag(props, monitor) {
     const {
       fen,
+      height,
       onDragStart,
       orientation,
       piece,
@@ -130,7 +131,7 @@ const pieceSource = {
       fromSquare: square,
       piece,
       pieceTheme,
-      size: component.pieceImage.width,
+      size: height / 8,
     }
 
     onDragStart(square, piece, fen, orientation)
@@ -182,6 +183,7 @@ const collect = (dndConnect, monitor) => ({
 const mapState = state => ({
   dropOffBoard: state.dropOffBoard,
   fen: state.fen,
+  height: state.height,
   isDraggable: state.isDraggable,
   onDragStart: state.events.onDragStart,
   onDrop: state.events.onDrop,

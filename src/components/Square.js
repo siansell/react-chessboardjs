@@ -64,7 +64,7 @@ class Square extends Component {
           boxShadow: (isOver && canDrop) ? 'inset 3px 3px 8px yellow, inset -3px -3px 8px yellow' : 'none',
           color: isBlackSquare ? whiteSquareColour : blackSquareColour,
           display: 'flex',
-          height: '12.5%',
+          height: algebraic === 'spare' ? '100%' : '12.5%',
           justifyContent: 'center',
           position: 'relative',
           width: '12.5%',
