@@ -90,6 +90,7 @@ Square.propTypes = {
   whiteSquareColour: PropTypes.string.isRequired, // injected by react-redux
   /* eslint-disable react/no-unused-prop-types */
   algebraic: PropTypes.string.isRequired,
+  uuid: PropTypes.string.isRequired,
   /* eslint-enable react/no-unused-prop-types */
 }
 

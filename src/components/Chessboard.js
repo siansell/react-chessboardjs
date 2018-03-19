@@ -27,7 +27,12 @@ class Chessboard extends Component {
   }
 
   renderSquares = () => {
-    const { fen, orientation, showCoordinates } = this.props
+    const {
+      fen,
+      orientation,
+      showCoordinates,
+      uuid,
+    } = this.props
     const fenParts = getFenParts(fen)
     const squares = []
     for (let i = 0; i < 8; i += 1) {
@@ -47,15 +52,17 @@ class Chessboard extends Component {
             algebraic={algebraic}
             isBlackSquare={isBlackSquare}
             piece={piece !== '1' ? piece : null}
+            uuid={uuid}
           >
             {showCoordinates && ((orientation === 'w' && rank === 7) || (orientation === 'b' && rank === 0))
-              && <Coordinate display="file" text={fileChar} />}
+              && <Coordinate display="file" text={fileChar} uuid={uuid} />}
             {showCoordinates && ((orientation === 'w' && file === 0) || (orientation === 'b' && file === 7))
-              && <Coordinate display="rank" text={rankChar} />}
+              && <Coordinate display="rank" text={rankChar} uuid={uuid} />}
             {piece !== '1' && (
               <Piece
                 piece={piece}
                 square={algebraic}
+                uuid={uuid}
               />
             )}
           </Square>,
@@ -74,6 +81,7 @@ class Chessboard extends Component {
       orientation,
       style,
       sparePieces,
+      uuid,
       width,
     } = this.props
 
@@ -93,6 +101,7 @@ class Chessboard extends Component {
         {sparePieces && (
           <SparePieces
             colour={orientation === 'w' ? 'b' : 'w'}
+            uuid={uuid}
             width={width}
           />
         )}
@@ -106,11 +115,12 @@ class Chessboard extends Component {
             onResize={() => this.setHeight()}
           />
           {this.renderSquares()}
-          {isDraggable && <PieceDragLayer />}
+          {isDraggable && <PieceDragLayer uuid={uuid} />}
         </div>
         {sparePieces && (
           <SparePieces
             colour={orientation}
+            uuid={uuid}
             width={width}
           />
         )}
@@ -130,6 +140,7 @@ Chessboard.propTypes = {
   sparePieces: PropTypes.bool.isRequired,
   style: PropTypes.object,
   /* eslint-enable react/forbid-prop-types */
+  uuid: PropTypes.string.isRequired,
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 }
 
@@ -147,8 +158,8 @@ const mapState = state => ({
   sparePieces: state.sparePieces,
 })
 
-const mapDispatch = dispatch => ({
-  setHeight: height => dispatch(setHeightAction(height)),
+const mapDispatch = (dispatch, ownProps) => ({
+  setHeight: height => dispatch(setHeightAction(ownProps.uuid, height)),
 })
 
 export default connect(mapState, mapDispatch)(DragDropContext(HTML5Backend)(Chessboard))

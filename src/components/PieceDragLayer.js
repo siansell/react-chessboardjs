@@ -81,6 +81,9 @@ PieceDragLayer.propTypes = {
   /* eslint-enable react/forbid-prop-types */
   itemType: PropTypes.string, // injected by react-dnd
   isDragging: PropTypes.bool.isRequired, // injected by react-dnd
+  /* eslint-disable react/no-unused-prop-types */
+  uuid: PropTypes.string.isRequired,
+  /* eslint-enable react/no-unused-prop-types */
 }
 
 PieceDragLayer.defaultProps = {

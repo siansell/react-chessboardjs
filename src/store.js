@@ -26,6 +26,7 @@ export const initialState = {
   pieceTheme: 'wikipedia',
   showCoordinates: true,
   sparePieces: false,
+  uuid: null,
   width: 400,
   whiteSquareColour: '#f0d9b5',
 }
@@ -43,61 +44,60 @@ const SET_SHOW_COORDINATES = 'SET_SHOW_COORDINATES'
 const SET_SPARE_PIECES = 'SET_SPARE_PIECES'
 const SET_WHITE_SQUARE_COLOUR = 'SET_WHITE_SQUARE_COLOUR'
 
-export const makeMoveAction = (piece, fromSquare, toSquare) => (dispatch, getState) => {
+export const makeMoveAction = (id, piece, fromSquare, toSquare) => (dispatch, getState) => {
   const oldPos = getState().fen
-  dispatch({ type: MAKE_MOVE, payload: { piece, fromSquare, toSquare } })
+  dispatch({ type: `${id}/${MAKE_MOVE}`, payload: { piece, fromSquare, toSquare } })
   const newPos = getState().fen
   getState().events.onChange(oldPos, newPos)
   if (toSquare) getState().events.onMoveEnd(oldPos, newPos)
 }
-export const setBlackSquareColourAction = colour => ({ type: SET_BLACK_SQUARE_COLOUR, payload: colour })
-export const setDropOffBoardAction = value => ({ type: SET_DROP_OFF_BOARD, payload: value })
-export const setEventFuncAction = (event, f) => ({ type: SET_EVENT_FUNC, payload: { event, func: f } })
-export const setFenAction = fen => (dispatch, getState) => {
+export const setBlackSquareColourAction = (id, colour) => ({ type: `${id}/${SET_BLACK_SQUARE_COLOUR}`, payload: colour })
+export const setDropOffBoardAction = (id, value) => ({ type: `${id}/${SET_DROP_OFF_BOARD}`, payload: value })
+export const setEventFuncAction = (id, event, f) => ({ type: `${id}/${SET_EVENT_FUNC}`, payload: { event, func: f } })
+export const setFenAction = (id, fen) => (dispatch, getState) => {
   const oldPos = getState().fen
-  dispatch({ type: SET_FEN, payload: fen })
+  dispatch({ type: `${id}/${SET_FEN}`, payload: fen })
   const newPos = getState().fen
   getState().events.onChange(oldPos, newPos)
 }
-export const setIsDraggableAction = value => ({ type: SET_IS_DRAGGABLE, payload: value })
-export const setHeightAction = height => (dispatch, getState) => {
+export const setIsDraggableAction = (id, value) => ({ type: `${id}/${SET_IS_DRAGGABLE}`, payload: value })
+export const setHeightAction = (id, height) => (dispatch, getState) => {
   const oldHeight = getState().height
-  dispatch({ type: SET_HEIGHT, payload: height })
+  dispatch({ type: `${id}/${SET_HEIGHT}`, payload: height })
   const newHeight = getState().height
   getState().events.onResize(oldHeight, newHeight)
 }
-export const setOrientationAction = orientation => ({ type: SET_ORIENTATION, payload: orientation })
-export const setPieceThemeAction = theme => ({ type: SET_PIECE_THEME, payload: theme })
-export const setShowCoordinatesAction = show => ({ type: SET_SHOW_COORDINATES, payload: show })
-export const setSparePiecesAction = value => ({ type: SET_SPARE_PIECES, payload: value })
-export const setWhiteSquareColourAction = colour => ({ type: SET_WHITE_SQUARE_COLOUR, payload: colour })
+export const setOrientationAction = (id, orientation) => ({ type: `${id}/${SET_ORIENTATION}`, payload: orientation })
+export const setPieceThemeAction = (id, theme) => ({ type: `${id}/${SET_PIECE_THEME}`, payload: theme })
+export const setShowCoordinatesAction = (id, show) => ({ type: `${id}/${SET_SHOW_COORDINATES}`, payload: show })
+export const setSparePiecesAction = (id, value) => ({ type: `${id}/${SET_SPARE_PIECES}`, payload: value })
+export const setWhiteSquareColourAction = (id, colour) => ({ type: `${id}/${SET_WHITE_SQUARE_COLOUR}`, payload: colour })
 
-const reducer = (state = initialState, action) => {
-  // console.log(action)
+const reducer = id => (state = initialState, action) => {
   switch (action.type) {
-    case MAKE_MOVE: {
+    case `${id}/${MAKE_MOVE}`: {
       const { piece, fromSquare, toSquare } = action.payload
       return {
         ...state,
         fen: makeMove(state.fen, piece, fromSquare, toSquare),
       }
     }
-    case SET_BLACK_SQUARE_COLOUR:
+    case `${id}/${SET_BLACK_SQUARE_COLOUR}`:
       return {
         ...state,
         blackSquareColour: action.payload,
       }
-    case SET_DROP_OFF_BOARD:
+    case `${id}/${SET_DROP_OFF_BOARD}`:
       return {
         ...state,
         dropOffBoard: action.payload,
       }
-    case SET_FEN:
+    case `${id}/${SET_FEN}`:
       return {
         ...state,
         fen: removeExtraFenInfo(replaceFenConstants(action.payload)),
       }
-    case SET_EVENT_FUNC: {
+    case `${id}/${SET_EVENT_FUNC}`: {
       const events = {}
       Object.keys(state.events).forEach((e) => {
         if (e === action.payload.event) {
@@ -111,38 +111,38 @@ const reducer = (state = initialState, action) => {
         events,
       }
     }
-    case SET_HEIGHT: {
+    case `${id}/${SET_HEIGHT}`: {
       return {
         ...state,
         height: action.payload,
       }
     }
-    case SET_IS_DRAGGABLE:
+    case `${id}/${SET_IS_DRAGGABLE}`:
       return {
         ...state,
         isDraggable: action.payload,
       }
-    case SET_ORIENTATION:
+    case `${id}/${SET_ORIENTATION}`:
       return {
         ...state,
         orientation: action.payload,
       }
-    case SET_PIECE_THEME:
+    case `${id}/${SET_PIECE_THEME}`:
       return {
         ...state,
         pieceTheme: action.payload,
       }
-    case SET_SHOW_COORDINATES:
+    case `${id}/${SET_SHOW_COORDINATES}`:
       return {
         ...state,
         showCoordinates: action.payload,
       }
-    case SET_SPARE_PIECES:
+    case `${id}/${SET_SPARE_PIECES}`:
       return {
         ...state,
         sparePieces: action.payload,
       }
-    case SET_WHITE_SQUARE_COLOUR:
+    case `${id}/${SET_WHITE_SQUARE_COLOUR}`:
       return {
         ...state,
         whiteSquareColour: action.payload,
@@ -152,10 +152,10 @@ const reducer = (state = initialState, action) => {
   }
 }
 
-const store = createStore(
-  reducer,
-  // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+const createStoreWithId = id => createStore(
+  reducer(id),
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
   applyMiddleware(thunk),
 )
 
-export default store
+export default createStoreWithId

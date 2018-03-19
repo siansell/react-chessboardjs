@@ -24,7 +24,9 @@ const plugins = [
   replace({
     'process.env.NODE_ENV': JSON.stringify(env),
   }),
-  resolve(),
+  resolve({
+    browser: true,
+  }),
 ]
 
 if (env === 'production') {
@@ -39,6 +41,7 @@ export default {
   },
   plugins,
   external: [
+    'crypto',
     'react',
     /*
     asap causes a build warning, and also prevents rollup --watch running.

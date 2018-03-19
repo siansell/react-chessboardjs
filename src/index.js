@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Provider } from 'react-redux'
+import uuidv4 from 'uuid/v4'
 
 import Chessboard from './components/Chessboard'
 
 import { orientationTypes, pieceThemeTypes } from './types'
 
-import store, {
+import createStoreWithId, {
   initialState,
   setBlackSquareColourAction,
   setDropOffBoardAction,
@@ -22,6 +23,12 @@ import store, {
 
 class ChessboardProvider extends Component {
   componentWillMount() {
+    // unique id, required for multiple chessboards on a single page
+    const id = uuidv4()
+    this.uuid = id
+    this.store = createStoreWithId(id)
+    const { store, uuid } = this
+
     // set state from passed in props
     const {
       blackSquareColour,
@@ -45,43 +52,43 @@ class ChessboardProvider extends Component {
     } = this.props
     // other props
     if (blackSquareColour !== initialState.blackSquareColour) {
-      store.dispatch(setBlackSquareColourAction(blackSquareColour))
+      store.dispatch(setBlackSquareColourAction(uuid, blackSquareColour))
     }
     if (dropOffBoard !== initialState.dropOffBoard) {
-      store.dispatch(setDropOffBoardAction(dropOffBoard))
+      store.dispatch(setDropOffBoardAction(uuid, dropOffBoard))
     }
     if (fen !== initialState.fen) {
-      store.dispatch(setFenAction(fen))
+      store.dispatch(setFenAction(uuid, fen))
     }
     if (isDraggable !== initialState.isDraggable) {
-      store.dispatch(setIsDraggableAction(isDraggable))
+      store.dispatch(setIsDraggableAction(uuid, isDraggable))
     }
     if (orientation !== initialState.orientation) {
-      store.dispatch(setOrientationAction(orientation))
+      store.dispatch(setOrientationAction(uuid, orientation))
     }
     if (pieceTheme !== initialState.pieceTheme) {
-      store.dispatch(setPieceThemeAction(pieceTheme))
+      store.dispatch(setPieceThemeAction(uuid, pieceTheme))
     }
     if (showCoordinates !== initialState.showCoordinates) {
-      store.dispatch(setShowCoordinatesAction(showCoordinates))
+      store.dispatch(setShowCoordinatesAction(uuid, showCoordinates))
     }
     if (sparePieces !== initialState.sparePieces) {
-      store.dispatch(setSparePiecesAction(sparePieces))
+      store.dispatch(setSparePiecesAction(uuid, sparePieces))
     }
     if (whiteSquareColour !== initialState.whiteSquareColour) {
-      store.dispatch(setWhiteSquareColourAction(whiteSquareColour))
+      store.dispatch(setWhiteSquareColourAction(uuid, whiteSquareColour))
     }
     // set event handlers
-    store.dispatch(setEventFuncAction('onChange', onChange))
-    store.dispatch(setEventFuncAction('onDragMove', onDragMove))
-    store.dispatch(setEventFuncAction('onDragStart', onDragStart))
-    store.dispatch(setEventFuncAction('onDragStart', onDragStart))
-    store.dispatch(setEventFuncAction('onDrop', onDrop))
-    store.dispatch(setEventFuncAction('onMouseOutSquare', onMouseOutSquare))
-    store.dispatch(setEventFuncAction('onMouseOverSquare', onMouseOverSquare))
-    store.dispatch(setEventFuncAction('onMoveEnd', onMoveEnd))
-    store.dispatch(setEventFuncAction('onResize', onResize))
-    store.dispatch(setEventFuncAction('onSnapbackEnd', onSnapbackEnd))
+    store.dispatch(setEventFuncAction(uuid, 'onChange', onChange))
+    store.dispatch(setEventFuncAction(uuid, 'onDragMove', onDragMove))
+    store.dispatch(setEventFuncAction(uuid, 'onDragStart', onDragStart))
+    store.dispatch(setEventFuncAction(uuid, 'onDragStart', onDragStart))
+    store.dispatch(setEventFuncAction(uuid, 'onDrop', onDrop))
+    store.dispatch(setEventFuncAction(uuid, 'onMouseOutSquare', onMouseOutSquare))
+    store.dispatch(setEventFuncAction(uuid, 'onMouseOverSquare', onMouseOverSquare))
+    store.dispatch(setEventFuncAction(uuid, 'onMoveEnd', onMoveEnd))
+    store.dispatch(setEventFuncAction(uuid, 'onReszize', onResize))
+    store.dispatch(setEventFuncAction(uuid, 'onSnapbackEnd', onSnapbackEnd))
   }
 
   componentWillReceiveProps(nextProps) {
@@ -97,40 +104,42 @@ class ChessboardProvider extends Component {
       sparePieces,
       whiteSquareColour,
     } = nextProps
+    const { store, uuid } = this
     if (blackSquareColour !== this.props.blackSquareColour) {
-      store.dispatch(setBlackSquareColourAction(blackSquareColour))
+      store.dispatch(setBlackSquareColourAction(uuid, blackSquareColour))
     }
     if (dropOffBoard !== this.props.dropOffBoard) {
-      store.dispatch(setDropOffBoardAction(dropOffBoard))
+      store.dispatch(setDropOffBoardAction(uuid, dropOffBoard))
     }
     if (fen !== this.props.fen) {
-      store.dispatch(setFenAction(fen))
+      store.dispatch(setFenAction(uuid, fen))
     }
     if (isDraggable !== this.props.isDraggable) {
-      store.dispatch(setIsDraggableAction(isDraggable))
+      store.dispatch(setIsDraggableAction(uuid, isDraggable))
     }
     if (orientation !== this.props.orientation) {
-      store.dispatch(setOrientationAction(orientation))
+      store.dispatch(setOrientationAction(uuid, orientation))
     }
     if (pieceTheme !== this.props.pieceTheme) {
-      store.dispatch(setPieceThemeAction(pieceTheme))
+      store.dispatch(setPieceThemeAction(uuid, pieceTheme))
     }
     if (showCoordinates !== this.props.showCoordinates) {
-      store.dispatch(setShowCoordinatesAction(showCoordinates))
+      store.dispatch(setShowCoordinatesAction(uuid, showCoordinates))
     }
     if (sparePieces !== this.props.sparePieces) {
-      store.dispatch(setSparePiecesAction(sparePieces))
+      store.dispatch(setSparePiecesAction(uuid, sparePieces))
     }
     if (whiteSquareColour !== this.props.whiteSquareColour) {
-      store.dispatch(setWhiteSquareColourAction(whiteSquareColour))
+      store.dispatch(setWhiteSquareColourAction(uuid, whiteSquareColour))
     }
   }
 
   render() {
     const { width, style } = this.props
     return (
-      <Provider store={store}>
+      <Provider store={this.store}>
         <Chessboard
+          uuid={this.uuid}
           style={style}
           width={width}
         />

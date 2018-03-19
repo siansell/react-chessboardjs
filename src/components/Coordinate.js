@@ -25,6 +25,9 @@ Coordinate.propTypes = {
   display: PropTypes.oneOf(rankOrFileTypes).isRequired,
   orientation: PropTypes.oneOf(orientationTypes).isRequired, // injected by react-redux
   text: PropTypes.string.isRequired,
+  /* eslint-disable react/no-unused-prop-types */
+  uuid: PropTypes.string.isRequired,
+  /* eslint-enable react/no-unused-prop-types */
 }
 
 const mapState = state => ({ orientation: state.orientation })

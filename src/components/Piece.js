@@ -106,8 +106,10 @@ Piece.propTypes = {
   onSnapbackEnd: PropTypes.func.isRequired, // injected by react-redux
   orientation: PropTypes.oneOf(orientationTypes).isRequired, // injected by react-redux
   square: PropTypes.string.isRequired,
+  uuid: PropTypes.string.isRequired,
   /* eslint-enable react/no-unused-prop-types */
 }
+
 
 const pieceSource = {
   canDrag(props) {
@@ -188,8 +190,8 @@ const mapState = state => ({
   pieceTheme: state.pieceTheme,
 })
 
-const mapDispatch = dispatch => ({
-  makeMove: (piece, fromSquare, toSquare) => dispatch(makeMoveAction(piece, fromSquare, toSquare)),
+const mapDispatch = (dispatch, ownProps) => ({
+  makeMove: (piece, fromSquare, toSquare) => dispatch(makeMoveAction(ownProps.uuid, piece, fromSquare, toSquare)),
 })
 
 export default connect(mapState, mapDispatch)(DragSource('piece', pieceSource, collect)(Piece))
