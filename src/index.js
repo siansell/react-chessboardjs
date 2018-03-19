@@ -23,8 +23,10 @@ import createStoreWithId, {
 
 class ChessboardProvider extends Component {
   componentWillMount() {
-    // unique id, required for multiple chessboards on a single page
     const id = uuidv4()
+    // unique id, required for multiple chessboards on a single page
+    // the redux store and reducers etc are namespaced with this
+    // There will be a unique store for each Chessboard instance
     this.uuid = id
     this.store = createStoreWithId(id)
     const { store, uuid } = this
