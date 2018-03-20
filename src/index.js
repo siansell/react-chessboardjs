@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Provider } from 'react-redux'
 import uuidv4 from 'uuid/v4'
+import 'babel-polyfill'
 
 import Chessboard from './components/Chessboard'
 

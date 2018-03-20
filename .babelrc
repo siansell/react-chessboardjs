@@ -6,7 +6,8 @@
   "plugins": [
     "transform-class-properties",
     "async-import",
-    "transform-object-rest-spread"
+    "transform-object-rest-spread",
+    "transform-async-to-generator"
   ],
   "env": {
     "production": {
