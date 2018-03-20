@@ -2,6 +2,8 @@
 
 **Work in progress**. Use at own risk. BAD THINGS MIGHT HAPPEN IF THE CHESSBOARD ON YOUR WEBSITE BREAKS.
 
+**Latest release, build is currently broken. Bear with me.**
+
 `yarn add react-chessboardjs`
 
 A chessboard component for React, inspired by [chessboard.js](https://chessboardjs.com/).
