@@ -1,6 +1,6 @@
 {
   "name": "react-chessboardjs",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "A chessboard component for React, inspired by chessboard.js",
   "main": "dist/index.js",
   "scripts": {
