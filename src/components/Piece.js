@@ -36,7 +36,7 @@ class Piece extends Component {
 
   loadImage = async (piece, pieceTheme) => {
     const pieceColour = piece.toUpperCase() === piece ? 'w' : 'b'
-    const pieceImage = await import(`../src/components/assets/chesspieces/${pieceTheme}/${pieceColour}${piece.toUpperCase()}.svg`)
+    const { default: pieceImage } = await import(`./assets/chesspieces/${pieceTheme}/${pieceColour}${piece.toUpperCase()}.svg`)
     if (!this.mounted) return
     this.setState({
       pieceImage,

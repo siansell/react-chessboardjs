@@ -5,7 +5,7 @@ import { DragLayer } from 'react-dnd'
 const loadPieceImages = async (item) => {
   const { piece, pieceTheme } = item
   const pieceColour = piece.toUpperCase() === piece ? 'w' : 'b'
-  const img = await import(`../src/components/assets/chesspieces/${pieceTheme}/${pieceColour}${piece.toUpperCase()}.svg`)
+  const { default: img } = await import(`./assets/chesspieces/${pieceTheme}/${pieceColour}${piece.toUpperCase()}.svg`)
   return img
 }
 
